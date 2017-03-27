@@ -39,6 +39,7 @@ UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         print("Info: \(info)")
+        imagePickerControllerDidCancel(picker)
     }
 
     @IBAction func imageTapped(_ sender: Any) {
