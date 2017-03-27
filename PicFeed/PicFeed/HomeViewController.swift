@@ -47,11 +47,18 @@ UINavigationControllerDelegate {
         self.presentActionSheet()
     }
     
+    func cameraAvailable() -> Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    
     func presentActionSheet(){
         let actionSheetController = UIAlertController(title: "Source", message: "Please select source type", preferredStyle: .actionSheet)
         
+        if cameraAvailable() == true {
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             self.presentImagePickerWith(sourceType: .camera)
+        }
+            actionSheetController.addAction(cameraAction)
         }
         
         let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
@@ -60,12 +67,10 @@ UINavigationControllerDelegate {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
-        actionSheetController.addAction(cameraAction)
         actionSheetController.addAction(photoAction)
         actionSheetController.addAction(cancelAction)
         
         self.present(actionSheetController, animated: true, completion: nil)
-        
     }
 
 }
