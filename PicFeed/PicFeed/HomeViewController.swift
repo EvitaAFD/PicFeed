@@ -17,6 +17,8 @@ UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.imageView.image = #imageLiteral(resourceName: "P1020947")
 
     }
     
