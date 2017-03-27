@@ -37,7 +37,8 @@ UINavigationControllerDelegate {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        self.imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
+
         print("Info: \(info)")
         imagePickerControllerDidCancel(picker)
     }
