@@ -36,9 +36,9 @@ UINavigationControllerDelegate {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        self.imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
+        self.imageView.image = info[UIImagePickerControllerEditedImage] as? UIImage
         print("Info: \(info)")
-        if let captureImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+        if let captureImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
         }
         
