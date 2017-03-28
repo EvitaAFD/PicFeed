@@ -14,12 +14,25 @@ UINavigationControllerDelegate {
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.imageView.image = #imageLiteral(resourceName: "P1020947")
 
+        }
+    override func viewDidAppear(_ animated: Bool) {
+            filterButtonTopConstraint.constant = 8
+            postButtonBottomConstraint.constant = 8
+        
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+                
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }
+            self.imageView.image = #imageLiteral(resourceName: "P1020947")
     }
     
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
@@ -36,11 +49,16 @@ UINavigationControllerDelegate {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        self.imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
-        print("Info: \(info)")
-        if let captureImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
-        }
+        
+        guard let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        
+        self.imageView.image = editedImage
+        
+        UIImageWriteToSavedPhotosAlbum(editedImage, self, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, nil)
+
+        Filters.originalImage = originalImage
         
         imagePickerControllerDidCancel(picker)
     }
@@ -49,6 +67,59 @@ UINavigationControllerDelegate {
         print("User Tapped Image!")
         
         self.presentActionSheet()
+    }
+    
+    @IBAction func postButtonPressed(_ sender: Any) {
+        if let image = self.imageView.image {
+            
+            let newPost = Post(image: image)
+            CloudKit.shared.save(post: newPost, completion: { (success) in
+                
+                if success {
+                    print("Saved post sucessfully to CloudKit!")
+                } else {
+                    print("Failed to save post to CloudKit")
+                }
+                
+            })
+            
+        }
+        
+    }
+    
+    @IBAction func filterButtonPressed(_ sender: Any) {
+        guard let image = self.imageView.image else { return }
+        
+        let alertController = UIAlertController(title: "Filter", message: "Please select a filter!", preferredStyle: .alert)
+        
+        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
+                Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+                        self.imageView.image = filteredImage
+                })
+        }
+        
+        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
+                Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
+                        self.imageView.image = filteredImage
+                })
+            
+        }
+        
+        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
+                self.imageView.image = Filters.originalImage
+        
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(blackAndWhiteAction)
+        alertController.addAction(vintageAction)
+        alertController.addAction(resetAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
     func cameraAvailable() -> Bool {

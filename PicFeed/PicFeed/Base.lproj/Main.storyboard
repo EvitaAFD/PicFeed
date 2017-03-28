@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="SCi-iJ-YRV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="PicFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -23,28 +23,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PEx-vB-8Su">
-                                <rect key="frame" x="32" y="28" width="254" height="446"/>
+                                <rect key="frame" x="32" y="28" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </stackView>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v5A-gu-DhY">
-                                <rect key="frame" x="46.5" y="83" width="281" height="500"/>
+                                <rect key="frame" x="47" y="83" width="281" height="500"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="DdS-bz-r9x" appends="YES" id="nFH-de-80g"/>
                                 </connections>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XM-gq-skC">
+                                <rect key="frame" x="47" y="-147" width="281" height="30"/>
+                                <color key="backgroundColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="POST">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UIW-r3-MRU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82D-cc-00Y">
+                                <rect key="frame" x="46.5" y="783" width="281" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="FILTER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9lv-W4-rD0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="v5A-gu-DhY" firstAttribute="top" secondItem="7XM-gq-skC" secondAttribute="bottom" constant="200" id="5ve-tF-DOV"/>
+                            <constraint firstItem="7XM-gq-skC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FbD-Au-d5q"/>
+                            <constraint firstItem="7XM-gq-skC" firstAttribute="width" secondItem="v5A-gu-DhY" secondAttribute="width" id="Khh-Ge-CzP"/>
                             <constraint firstItem="v5A-gu-DhY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="RbJ-bS-YM9"/>
                             <constraint firstItem="v5A-gu-DhY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="bU7-es-CRc"/>
+                            <constraint firstItem="82D-cc-00Y" firstAttribute="width" secondItem="v5A-gu-DhY" secondAttribute="width" id="gBj-f5-mcC"/>
+                            <constraint firstItem="82D-cc-00Y" firstAttribute="centerX" secondItem="v5A-gu-DhY" secondAttribute="centerX" id="hJL-bj-vjM"/>
+                            <constraint firstItem="82D-cc-00Y" firstAttribute="top" secondItem="v5A-gu-DhY" secondAttribute="bottom" constant="200" id="rSH-P0-YcO"/>
                             <constraint firstItem="v5A-gu-DhY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tYw-4Z-Y1Q"/>
                             <constraint firstItem="v5A-gu-DhY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wAT-Vx-NPq"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="iWR-Sv-kbm"/>
                     <connections>
+                        <outlet property="filterButtonTopConstraint" destination="rSH-P0-YcO" id="Yah-mk-HkC"/>
                         <outlet property="imageView" destination="v5A-gu-DhY" id="nqV-VU-POl"/>
+                        <outlet property="postButtonBottomConstraint" destination="5ve-tF-DOV" id="emh-6Y-2fQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -53,6 +82,23 @@
                         <action selector="imageTapped:" destination="BYZ-38-t0r" id="YWd-qB-eal"/>
                     </connections>
                 </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1076" y="136.28185907046478"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="cq1-u2-UAQ">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="SCi-iJ-YRV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="bM6-kr-74i">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="HYH-La-PLY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WCf-CN-iw7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="136.28185907046478"/>
         </scene>
