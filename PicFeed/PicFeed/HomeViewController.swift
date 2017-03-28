@@ -51,6 +51,25 @@ UINavigationControllerDelegate {
         self.presentActionSheet()
     }
     
+    @IBAction func postButtonPressed(_ sender: Any) {
+        if let image = self.imageView.image {
+            
+            let newPost = Post(image: image)
+            CloudKit.shared.save(post: newPost, completion: { (success) in
+                
+                if success {
+                    print("Saved post sucessfully to CloudKit!")
+                } else {
+                    print("Failed to save post to CloudKit")
+                }
+                
+            })
+            
+        }
+        
+    }
+    
+    
     func cameraAvailable() -> Bool {
         return UIImagePickerController.isSourceTypeAvailable(.camera)
     }
