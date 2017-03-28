@@ -19,8 +19,10 @@ UINavigationControllerDelegate {
     @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+         self.imageView.image = #imageLiteral(resourceName: "P1020947")
         }
+   
     override func viewDidAppear(_ animated: Bool) {
             filterButtonTopConstraint.constant = 8
             postButtonBottomConstraint.constant = 8
@@ -32,7 +34,6 @@ UINavigationControllerDelegate {
                 self.view.layoutIfNeeded()
             }
         }
-            self.imageView.image = #imageLiteral(resourceName: "P1020947")
     }
     
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
@@ -105,6 +106,29 @@ UINavigationControllerDelegate {
             
         }
         
+        let invertAction = UIAlertAction(title: "Invert", style: .default) { (action) in
+            Filters.filter(name: .invert, image: image, completion: { (filteredImage) in
+                self.imageView.image = filteredImage
+            })
+            
+        }
+        
+        let warmAction = UIAlertAction(title: "Warm", style: .default) { (action) in
+            Filters.filter(name: .warm, image: image, completion: { (filteredImage) in
+                self.imageView.image = filteredImage
+            })
+            
+        }
+        
+        let coolAction = UIAlertAction(title: "Cool", style: .default) { (action) in
+            Filters.filter(name: .cool, image: image, completion: { (filteredImage) in
+                self.imageView.image = filteredImage
+            })
+            
+        }
+        
+        
+        
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
                 self.imageView.image = Filters.originalImage
         
@@ -114,6 +138,9 @@ UINavigationControllerDelegate {
         
         alertController.addAction(blackAndWhiteAction)
         alertController.addAction(vintageAction)
+        alertController.addAction(invertAction)
+        alertController.addAction(warmAction)
+        alertController.addAction(coolAction)
         alertController.addAction(resetAction)
         alertController.addAction(cancelAction)
         
