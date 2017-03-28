@@ -16,15 +16,21 @@ UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         }
     override func viewDidAppear(_ animated: Bool) {
             filterButtonTopConstraint.constant = 8
-            
+            postButtonBottomConstraint.constant = 8
+        
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()
+                
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
         }
             self.imageView.image = #imageLiteral(resourceName: "P1020947")
     }
