@@ -83,6 +83,7 @@ UINavigationControllerDelegate {
                 }
                 
             })
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             
         }
         
