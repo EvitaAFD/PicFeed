@@ -96,12 +96,16 @@ UINavigationControllerDelegate {
         
         let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
                 Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+                    guard let unwrapFilters = filteredImage else { return }
+                        Filters.selectedFilters.append(unwrapFilters)
                         self.imageView.image = filteredImage
                 })
         }
         
         let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
                 Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
+                    guard let unwrapFilters = filteredImage else { return }
+                        Filters.selectedFilters.append(unwrapFilters)
                         self.imageView.image = filteredImage
                 })
             
@@ -109,6 +113,8 @@ UINavigationControllerDelegate {
         
         let invertAction = UIAlertAction(title: "Invert", style: .default) { (action) in
             Filters.filter(name: .invert, image: image, completion: { (filteredImage) in
+                guard let unwrapFilters = filteredImage else { return }
+                Filters.selectedFilters.append(unwrapFilters)
                 self.imageView.image = filteredImage
             })
             
@@ -116,6 +122,8 @@ UINavigationControllerDelegate {
         
         let warmAction = UIAlertAction(title: "Warm", style: .default) { (action) in
             Filters.filter(name: .warm, image: image, completion: { (filteredImage) in
+                guard let unwrapFilters = filteredImage else { return }
+                Filters.selectedFilters.append(unwrapFilters)
                 self.imageView.image = filteredImage
             })
             
@@ -123,6 +131,8 @@ UINavigationControllerDelegate {
         
         let coolAction = UIAlertAction(title: "Cool", style: .default) { (action) in
             Filters.filter(name: .cool, image: image, completion: { (filteredImage) in
+                guard let unwrapFilters = filteredImage else { return }
+                Filters.selectedFilters.append(unwrapFilters)
                 self.imageView.image = filteredImage
             })
             
@@ -135,6 +145,17 @@ UINavigationControllerDelegate {
         
         }
         
+        let undoAction = UIAlertAction(title: "Undo Filter", style: .cancel) { (action) in
+            if Filters.selectedFilters.count > 0 {
+                if self.imageView.image == Filters.selectedFilters.last{
+                    Filters.selectedFilters.removeLast()
+                }
+                self.imageView.image = Filters.selectedFilters.popLast()
+                } else {
+                self.imageView.image = Filters.originalImage
+            }
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(blackAndWhiteAction)
@@ -143,6 +164,7 @@ UINavigationControllerDelegate {
         alertController.addAction(warmAction)
         alertController.addAction(coolAction)
         alertController.addAction(resetAction)
+        alertController.addAction(undoAction)
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)

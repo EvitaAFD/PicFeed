@@ -24,6 +24,8 @@ class Filters {
 //store original image user picks
         static var originalImage = UIImage()
 
+        static var selectedFilters = [UIImage]()
+    
     class func filter(name: FilterName, image: UIImage, completion: @escaping FilterCompletion) {
     
         OperationQueue().addOperation {
