@@ -100,9 +100,6 @@
 				506BDAFF1E897F360078E645 /* AppDelegate.swift */,
 				50A9E8FE1E8984EF006E5650 /* CloudKit.swift */,
 				50A9E9001E898D4B006E5650 /* HomeViewController.swift */,
-				50B345FB1E8B1F9000ABB840 /* Filters.swift */,
-				50B345FC1E8B1F9000ABB840 /* Post.swift */,
-				50B345FD1E8B1F9000ABB840 /* UIExtensions.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -119,6 +116,9 @@
 		50A9E8FD1E898273006E5650 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				50B345FB1E8B1F9000ABB840 /* Filters.swift */,
+				50B345FC1E8B1F9000ABB840 /* Post.swift */,
+				50B345FD1E8B1F9000ABB840 /* UIExtensions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
