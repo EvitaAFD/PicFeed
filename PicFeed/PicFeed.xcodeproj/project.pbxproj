@@ -14,6 +14,9 @@
 		50A9E8F91E898042006E5650 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A9E8F81E898042006E5650 /* CloudKit.framework */; };
 		50A9E8FF1E8984EF006E5650 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9E8FE1E8984EF006E5650 /* CloudKit.swift */; };
 		50A9E9011E898D4B006E5650 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9E9001E898D4B006E5650 /* HomeViewController.swift */; };
+		50B345FE1E8B1F9000ABB840 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B345FB1E8B1F9000ABB840 /* Filters.swift */; };
+		50B345FF1E8B1F9000ABB840 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B345FC1E8B1F9000ABB840 /* Post.swift */; };
+		50B346001E8B1F9000ABB840 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B345FD1E8B1F9000ABB840 /* UIExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		50A9E8F81E898042006E5650 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		50A9E8FE1E8984EF006E5650 /* CloudKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
 		50A9E9001E898D4B006E5650 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		50B345FB1E8B1F9000ABB840 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		50B345FC1E8B1F9000ABB840 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		50B345FD1E8B1F9000ABB840 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,9 @@
 				506BDAFF1E897F360078E645 /* AppDelegate.swift */,
 				50A9E8FE1E8984EF006E5650 /* CloudKit.swift */,
 				50A9E9001E898D4B006E5650 /* HomeViewController.swift */,
+				50B345FB1E8B1F9000ABB840 /* Filters.swift */,
+				50B345FC1E8B1F9000ABB840 /* Post.swift */,
+				50B345FD1E8B1F9000ABB840 /* UIExtensions.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -196,8 +205,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A9E8FF1E8984EF006E5650 /* CloudKit.swift in Sources */,
+				50B345FE1E8B1F9000ABB840 /* Filters.swift in Sources */,
 				506BDB001E897F360078E645 /* AppDelegate.swift in Sources */,
+				50B346001E8B1F9000ABB840 /* UIExtensions.swift in Sources */,
 				50A9E9011E898D4B006E5650 /* HomeViewController.swift in Sources */,
+				50B345FF1E8B1F9000ABB840 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
