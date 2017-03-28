@@ -25,10 +25,9 @@ UINavigationControllerDelegate {
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
         
         self.imagePicker.delegate = self
-        
         self.imagePicker.sourceType = sourceType
-        
         self.present(self.imagePicker, animated: true, completion: nil)
+        self.imagePicker.allowsEditing = true
     
     }
     
@@ -38,8 +37,11 @@ UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
-
         print("Info: \(info)")
+        if let captureImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
+        }
+        
         imagePickerControllerDidCancel(picker)
     }
 
