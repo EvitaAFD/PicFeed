@@ -145,9 +145,9 @@ UINavigationControllerDelegate {
         
         }
         
-        let undoAction = UIAlertAction(title: "Undo Filter", style: .cancel) { (action) in
+        let undoAction = UIAlertAction(title: "Undo Filter", style: .destructive) { (action) in
             if Filters.selectedFilters.count > 0 {
-                if self.imageView.image == Filters.selectedFilters.last{
+                if self.imageView.image == Filters.selectedFilters.last {
                     Filters.selectedFilters.removeLast()
                 }
                 self.imageView.image = Filters.selectedFilters.popLast()
