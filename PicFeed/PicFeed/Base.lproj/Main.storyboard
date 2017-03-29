@@ -99,7 +99,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uhv-lS-dD1">
                                 <rect key="frame" x="-0.5" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vEI-hs-QhW">
                                     <size key="itemSize" width="305" height="299"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -107,7 +107,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="DkF-gk-mVS">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCell" id="DkF-gk-mVS" customClass="GalleryCell" customModule="PicFeed" customModuleProvider="target">
                                         <rect key="frame" x="35" y="0.0" width="305" height="299"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -125,11 +125,14 @@
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="centerX" secondItem="DkF-gk-mVS" secondAttribute="centerX" id="bhF-tV-Z2I"/>
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="centerY" secondItem="DkF-gk-mVS" secondAttribute="centerY" id="mS2-SL-bHr"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="g3x-Qx-qAA" id="Ezd-JD-wbG"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uhv-lS-dD1" firstAttribute="height" secondItem="fBw-TU-LzH" secondAttribute="height" id="39Y-8z-su8"/>
                             <constraint firstItem="uhv-lS-dD1" firstAttribute="centerY" secondItem="fBw-TU-LzH" secondAttribute="centerY" id="BBg-EJ-2Os"/>
@@ -158,8 +161,8 @@
                         <color key="selectedImageTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="HYH-La-PLY"/>
-                        <segue destination="wdl-fy-seS" kind="relationship" relationship="viewControllers" id="CyC-bq-QPO"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="QVc-3C-8su"/>
+                        <segue destination="wdl-fy-seS" kind="relationship" relationship="viewControllers" id="t1E-5J-ara"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCf-CN-iw7" userLabel="First Responder" sceneMemberID="firstResponder"/>
