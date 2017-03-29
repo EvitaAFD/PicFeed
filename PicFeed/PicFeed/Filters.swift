@@ -11,6 +11,9 @@ import UIKit
 enum FilterName : String {
     case vintage = "CIPhotoEffectTransfer"
     case blackAndWhite = "CIPhotoEffectMono"
+    case invert = "CIColorInvert"
+    case warm = "CIPhotoEffectInstant"
+    case cool = "CIPhotoEffectProcess"
 
 }
 
@@ -21,6 +24,8 @@ class Filters {
 //store original image user picks
         static var originalImage = UIImage()
 
+        static var selectedFilters = [UIImage]()
+    
     class func filter(name: FilterName, image: UIImage, completion: @escaping FilterCompletion) {
     
         OperationQueue().addOperation {
