@@ -9,7 +9,7 @@
 import UIKit
 
 class GalleryViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var allPosts = [Post]() {

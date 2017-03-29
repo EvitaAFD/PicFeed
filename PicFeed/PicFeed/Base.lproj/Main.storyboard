@@ -139,9 +139,6 @@
                             <constraint firstItem="bCu-3a-Yft" firstAttribute="top" secondItem="9jp-Nx-giU" secondAttribute="bottom" id="O6K-fn-5Qk"/>
                             <constraint firstItem="cgY-6i-APh" firstAttribute="top" secondItem="bCu-3a-Yft" secondAttribute="bottom" id="iPE-SC-nQd"/>
                         </constraints>
-                        <connections>
-                            <outlet property="collectionView" destination="bCu-3a-Yft" id="PRy-Bq-iXr"/>
-                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Gallery" id="SpE-Mt-cCu"/>
                 </viewController>
@@ -162,7 +159,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="HYH-La-PLY"/>
-                        <segue destination="NTb-gH-X8j" kind="relationship" relationship="viewControllers" id="kPr-Lb-KgV"/>
+                        <segue destination="NTb-gH-X8j" kind="relationship" relationship="viewControllers" id="NVZ-l4-h1p"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCf-CN-iw7" userLabel="First Responder" sceneMemberID="firstResponder"/>
