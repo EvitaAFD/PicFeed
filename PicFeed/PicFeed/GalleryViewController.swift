@@ -20,7 +20,9 @@ class GalleryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.view = self.collectionView
+        
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = GalleryCollectionViewLayout(columns: 1)
     
