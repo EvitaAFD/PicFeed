@@ -24,6 +24,7 @@ UINavigationControllerDelegate {
         }
    
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
             filterButtonTopConstraint.constant = 8
             postButtonBottomConstraint.constant = 8
         
