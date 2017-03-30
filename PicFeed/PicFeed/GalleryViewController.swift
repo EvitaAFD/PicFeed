@@ -35,17 +35,7 @@ class GalleryViewController: UIViewController {
         collectionView.collectionViewLayout = GalleryCollectionViewLayout(columns: 1)
     
     }
-    
-    func setupGalleryDelegate() {
-        if let tabBarController = self.tabBarController {
-            guard let viewControllers = tabBarController.viewControllers else { return }
-            
-            guard let galleryController = viewControllers[1] as? GalleryViewController else { return }
-            
-            galleryController.delegate = self
-        }
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -57,6 +47,30 @@ class GalleryViewController: UIViewController {
             if let posts = posts {
                 self.allPosts = posts
             }
+        }
+    }
+    
+    
+    @IBAction func userPinched(_ sender: UIPinchGestureRecognizer) {
+        
+        guard let layout = collectionView.collectionViewLayout as? GalleryCollectionViewLayout else { return }
+        
+        switch sender.state {
+        case .began:
+            print("Pinch Gesture by User!")
+        case .changed:
+            print("<-----User Pinch Changed----->")
+        case .ended:
+            print("Pinch Ended")
+            
+            let columns = sender.velocity > 0 ? layout.columns - 1 : layout.columns + 1
+            
+            if columns < 1 || columns > 10 { return }
+            
+            collectionView.setCollectionViewLayout(GalleryCollectionViewLayout(columns: columns), animated: true)
+            
+        default:
+            print("Unknown Sender State")
         }
     }
 

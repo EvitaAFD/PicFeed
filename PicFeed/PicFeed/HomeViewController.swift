@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import Social
 
 let buttonAnimationDuration = 0.5
-let collectionViewConstant = 150
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
@@ -20,13 +20,17 @@ UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
+    
+    let collectionViewConstant = 150
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,11 +39,22 @@ UINavigationControllerDelegate {
          setupGalleryDelegate()
 
         }
+    
+    func setupGalleryDelegate() {
+        if let tabBarController = self.tabBarController {
+            guard let viewControllers = tabBarController.viewControllers else { return }
+            
+            guard let galleryController = viewControllers[1] as? GalleryViewController else { return }
+            
+            galleryController.delegate = self
+        }
+    }
+
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-            //filterButtonTopConstraint.constant = 8
-          //  postButtonBottomConstraint.constant = 8
+            filterButtonBottomConstraint.constant = 8
+            postButtonBottomConstraint.constant = 8
         
             UIView.animate(withDuration: buttonAnimationDuration) {
                 self.view.layoutIfNeeded()
@@ -104,98 +119,21 @@ UINavigationControllerDelegate {
         
         guard let image = self.imageView.image else { return }
         
-//        self.collectionViewHeightConstraint.constant = collectionViewConstant
+        self.collectionViewHeightConstraint.constant = CGFloat(collectionViewConstant)
         
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+    }
+
+    @IBAction func userLongPressed(_ sender: UILongPressGestureRecognizer) {
         
-//        let alertController = UIAlertController(title: "Filter", message: "Please select a filter!", preferredStyle: .alert)
-//        
-//        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
-//                Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
-//                    guard let unwrapFilters = filteredImage else { return }
-//                        Filters.selectedFilters.append(unwrapFilters)
-//                        self.imageView.image = filteredImage
-//                })
-//        }
-//        
-//        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
-//                Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
-//                    guard let unwrapFilters = filteredImage else { return }
-//                        Filters.selectedFilters.append(unwrapFilters)
-//                        self.imageView.image = filteredImage
-//                })
-//            
-//        }
-//        
-//        let invertAction = UIAlertAction(title: "Invert", style: .default) { (action) in
-//            Filters.filter(name: .invert, image: image, completion: { (filteredImage) in
-//                guard let unwrapFilters = filteredImage else { return }
-//                Filters.selectedFilters.append(unwrapFilters)
-//                self.imageView.image = filteredImage
-//            })
-//            
-//        }
-//        
-//        let warmAction = UIAlertAction(title: "Warm", style: .default) { (action) in
-//            Filters.filter(name: .warm, image: image, completion: { (filteredImage) in
-//                guard let unwrapFilters = filteredImage else { return }
-//                Filters.selectedFilters.append(unwrapFilters)
-//                self.imageView.image = filteredImage
-//            })
-//            
-//        }
-//        
-//        let coolAction = UIAlertAction(title: "Cool", style: .default) { (action) in
-//            Filters.filter(name: .cool, image: image, completion: { (filteredImage) in
-//                guard let unwrapFilters = filteredImage else { return }
-//                Filters.selectedFilters.append(unwrapFilters)
-//                self.imageView.image = filteredImage
-//            })
-//        }
-//            
-//        let comicAction = UIAlertAction(title: "Comic", style: .default) { (action) in
-//            Filters.filter(name: .comic, image: image, completion: { (filteredImage) in
-//                guard let unwrapFilters = filteredImage else { return }
-//                Filters.selectedFilters.append(unwrapFilters)
-//                self.imageView.image = filteredImage
-//            })
-//            
-//        }
-//    
-//        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
-//                self.imageView.image = Filters.originalImage
-//        
-//        }
-//        
-//        let undoAction = UIAlertAction(title: "Undo Filter", style: .destructive) { (action) in
-//            if Filters.selectedFilters.count > 0 {
-//                if self.imageView.image == Filters.selectedFilters.last {
-//                    Filters.selectedFilters.removeLast()
-//                }
-//                self.imageView.image = Filters.selectedFilters.popLast()
-//                } else {
-//                self.imageView.image = Filters.originalImage
-//            }
-//        }
-//        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        
-//        alertController.addAction(blackAndWhiteAction)
-//        alertController.addAction(vintageAction)
-//        alertController.addAction(invertAction)
-//        alertController.addAction(warmAction)
-//        alertController.addAction(coolAction)
-//        alertController.addAction(comicAction)
-//        alertController.addAction(resetAction)
-//        alertController.addAction(undoAction)
-//        alertController.addAction(cancelAction)
-//       
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//        
-        
+        if(SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter)) {
+            guard let composeController = SLComposeViewController(forServiceType: SLServiceTypeTwitter) else { return }
+            composeController.add(self.imageView.image)
+            
+            self.present(composeController, animated: true, completion: nil)
+        }
     }
     
     func cameraAvailable() -> Bool {
@@ -256,3 +194,5 @@ extension HomeViewController: GalleryViewControllerDelegate {
         self.tabBarController?.selectedIndex = 0
     }
 }
+
+
