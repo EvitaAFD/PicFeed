@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
     
     let filterNames = [FilterName.blackAndWhite, FilterName.comic, FilterName.cool, FilterName.invert, FilterName.vintage, FilterName.warm]
-    
+    let filterStrings = ["Black&White", "Comic", "Cool", "Invert", "Vintage", "Warm"]
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var imageView: UIImageView!
@@ -175,6 +175,8 @@ extension HomeViewController : UICollectionViewDataSource {
         guard let resizedImage = originalImage.resize(size: CGSize(width: 150, height: 150)) else { return filterCell}
         
         let filterName = self.filterNames[indexPath.row]
+        let filterString = self.filterStrings[indexPath.row]
+        filterCell.filterNameLabel.text = filterString
         
         Filters.filter(name: filterName, image: resizedImage) { (filteredImage) in
             filterCell.imageView.image = filteredImage
