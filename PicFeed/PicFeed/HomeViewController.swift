@@ -134,11 +134,17 @@ UINavigationControllerDelegate {
                 Filters.selectedFilters.append(unwrapFilters)
                 self.imageView.image = filteredImage
             })
+        }
+            
+        let comicAction = UIAlertAction(title: "Comic", style: .default) { (action) in
+            Filters.filter(name: .comic, image: image, completion: { (filteredImage) in
+                guard let unwrapFilters = filteredImage else { return }
+                Filters.selectedFilters.append(unwrapFilters)
+                self.imageView.image = filteredImage
+            })
             
         }
-        
-        
-        
+    
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
                 self.imageView.image = Filters.originalImage
         
@@ -162,9 +168,11 @@ UINavigationControllerDelegate {
         alertController.addAction(invertAction)
         alertController.addAction(warmAction)
         alertController.addAction(coolAction)
+        alertController.addAction(comicAction)
         alertController.addAction(resetAction)
         alertController.addAction(undoAction)
         alertController.addAction(cancelAction)
+       
         
         self.present(alertController, animated: true, completion: nil)
         
