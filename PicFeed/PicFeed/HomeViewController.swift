@@ -9,26 +9,37 @@
 import UIKit
 
 let buttonAnimationDuration = 0.5
+let collectionViewConstant = 150
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
     
+    let filterNames = [FilterName.blackAndWhite, FilterName.comic, FilterName.cool, FilterName.invert, FilterName.vintage, FilterName.warm]
+    
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
          self.imageView.image = #imageLiteral(resourceName: "P1020947")
+         self.collectionView.dataSource = self
+         setupGalleryDelegate()
+
         }
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-            filterButtonTopConstraint.constant = 8
-            postButtonBottomConstraint.constant = 8
+            //filterButtonTopConstraint.constant = 8
+          //  postButtonBottomConstraint.constant = 8
         
             UIView.animate(withDuration: buttonAnimationDuration) {
                 self.view.layoutIfNeeded()
@@ -59,6 +70,7 @@ UINavigationControllerDelegate {
         UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, nil)
 
         Filters.originalImage = originalImage
+        self.collectionView.reloadData()
         
         imagePickerControllerDidCancel(picker)
     }
@@ -89,93 +101,100 @@ UINavigationControllerDelegate {
     }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
+        
         guard let image = self.imageView.image else { return }
         
-        let alertController = UIAlertController(title: "Filter", message: "Please select a filter!", preferredStyle: .alert)
+//        self.collectionViewHeightConstraint.constant = collectionViewConstant
         
-        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
-                Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
-                    guard let unwrapFilters = filteredImage else { return }
-                        Filters.selectedFilters.append(unwrapFilters)
-                        self.imageView.image = filteredImage
-                })
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
         }
         
-        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
-                Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
-                    guard let unwrapFilters = filteredImage else { return }
-                        Filters.selectedFilters.append(unwrapFilters)
-                        self.imageView.image = filteredImage
-                })
-            
-        }
-        
-        let invertAction = UIAlertAction(title: "Invert", style: .default) { (action) in
-            Filters.filter(name: .invert, image: image, completion: { (filteredImage) in
-                guard let unwrapFilters = filteredImage else { return }
-                Filters.selectedFilters.append(unwrapFilters)
-                self.imageView.image = filteredImage
-            })
-            
-        }
-        
-        let warmAction = UIAlertAction(title: "Warm", style: .default) { (action) in
-            Filters.filter(name: .warm, image: image, completion: { (filteredImage) in
-                guard let unwrapFilters = filteredImage else { return }
-                Filters.selectedFilters.append(unwrapFilters)
-                self.imageView.image = filteredImage
-            })
-            
-        }
-        
-        let coolAction = UIAlertAction(title: "Cool", style: .default) { (action) in
-            Filters.filter(name: .cool, image: image, completion: { (filteredImage) in
-                guard let unwrapFilters = filteredImage else { return }
-                Filters.selectedFilters.append(unwrapFilters)
-                self.imageView.image = filteredImage
-            })
-        }
-            
-        let comicAction = UIAlertAction(title: "Comic", style: .default) { (action) in
-            Filters.filter(name: .comic, image: image, completion: { (filteredImage) in
-                guard let unwrapFilters = filteredImage else { return }
-                Filters.selectedFilters.append(unwrapFilters)
-                self.imageView.image = filteredImage
-            })
-            
-        }
-    
-        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
-                self.imageView.image = Filters.originalImage
-        
-        }
-        
-        let undoAction = UIAlertAction(title: "Undo Filter", style: .destructive) { (action) in
-            if Filters.selectedFilters.count > 0 {
-                if self.imageView.image == Filters.selectedFilters.last {
-                    Filters.selectedFilters.removeLast()
-                }
-                self.imageView.image = Filters.selectedFilters.popLast()
-                } else {
-                self.imageView.image = Filters.originalImage
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(blackAndWhiteAction)
-        alertController.addAction(vintageAction)
-        alertController.addAction(invertAction)
-        alertController.addAction(warmAction)
-        alertController.addAction(coolAction)
-        alertController.addAction(comicAction)
-        alertController.addAction(resetAction)
-        alertController.addAction(undoAction)
-        alertController.addAction(cancelAction)
-       
-        
-        self.present(alertController, animated: true, completion: nil)
-        
+//        let alertController = UIAlertController(title: "Filter", message: "Please select a filter!", preferredStyle: .alert)
+//        
+//        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
+//                Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+//                    guard let unwrapFilters = filteredImage else { return }
+//                        Filters.selectedFilters.append(unwrapFilters)
+//                        self.imageView.image = filteredImage
+//                })
+//        }
+//        
+//        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
+//                Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
+//                    guard let unwrapFilters = filteredImage else { return }
+//                        Filters.selectedFilters.append(unwrapFilters)
+//                        self.imageView.image = filteredImage
+//                })
+//            
+//        }
+//        
+//        let invertAction = UIAlertAction(title: "Invert", style: .default) { (action) in
+//            Filters.filter(name: .invert, image: image, completion: { (filteredImage) in
+//                guard let unwrapFilters = filteredImage else { return }
+//                Filters.selectedFilters.append(unwrapFilters)
+//                self.imageView.image = filteredImage
+//            })
+//            
+//        }
+//        
+//        let warmAction = UIAlertAction(title: "Warm", style: .default) { (action) in
+//            Filters.filter(name: .warm, image: image, completion: { (filteredImage) in
+//                guard let unwrapFilters = filteredImage else { return }
+//                Filters.selectedFilters.append(unwrapFilters)
+//                self.imageView.image = filteredImage
+//            })
+//            
+//        }
+//        
+//        let coolAction = UIAlertAction(title: "Cool", style: .default) { (action) in
+//            Filters.filter(name: .cool, image: image, completion: { (filteredImage) in
+//                guard let unwrapFilters = filteredImage else { return }
+//                Filters.selectedFilters.append(unwrapFilters)
+//                self.imageView.image = filteredImage
+//            })
+//        }
+//            
+//        let comicAction = UIAlertAction(title: "Comic", style: .default) { (action) in
+//            Filters.filter(name: .comic, image: image, completion: { (filteredImage) in
+//                guard let unwrapFilters = filteredImage else { return }
+//                Filters.selectedFilters.append(unwrapFilters)
+//                self.imageView.image = filteredImage
+//            })
+//            
+//        }
+//    
+//        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
+//                self.imageView.image = Filters.originalImage
+//        
+//        }
+//        
+//        let undoAction = UIAlertAction(title: "Undo Filter", style: .destructive) { (action) in
+//            if Filters.selectedFilters.count > 0 {
+//                if self.imageView.image == Filters.selectedFilters.last {
+//                    Filters.selectedFilters.removeLast()
+//                }
+//                self.imageView.image = Filters.selectedFilters.popLast()
+//                } else {
+//                self.imageView.image = Filters.originalImage
+//            }
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        
+//        alertController.addAction(blackAndWhiteAction)
+//        alertController.addAction(vintageAction)
+//        alertController.addAction(invertAction)
+//        alertController.addAction(warmAction)
+//        alertController.addAction(coolAction)
+//        alertController.addAction(comicAction)
+//        alertController.addAction(resetAction)
+//        alertController.addAction(undoAction)
+//        alertController.addAction(cancelAction)
+//       
+//        
+//        self.present(alertController, animated: true, completion: nil)
+//        
         
     }
     
@@ -205,4 +224,35 @@ UINavigationControllerDelegate {
         self.present(actionSheetController, animated: true, completion: nil)
     }
 
+}
+
+//MARK: UICollectionViewDataSource
+extension HomeViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCell.identifier, for: indexPath) as! FilterCell
+        
+        guard let originalImage = Filters.originalImage else { return filterCell }
+        
+        
+        guard let resizedImage = originalImage.resize(size: CGSize(width: 150, height: 150)) else { return filterCell}
+        
+        let filterName = self.filterNames[indexPath.row]
+        
+        Filters.filter(name: filterName, image: resizedImage) { (filteredImage) in
+            filterCell.imageView.image = filteredImage
+        }
+        
+        return filterCell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filterNames.count
+    }
+}
+extension HomeViewController: GalleryViewControllerDelegate {
+    
+    func galleryController(didSelect image: UIImage) {
+        self.imageView.image = image
+        
+        self.tabBarController?.selectedIndex = 0
+    }
 }

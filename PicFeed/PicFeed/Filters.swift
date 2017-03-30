@@ -34,7 +34,7 @@ class Filters {
         self.context = CIContext(eaglContext: eaglContext, options: options)
     }
 //store original image user picks
-        static var originalImage = UIImage()
+    static var originalImage : UIImage?
 
         static var selectedFilters = [UIImage]()
     
