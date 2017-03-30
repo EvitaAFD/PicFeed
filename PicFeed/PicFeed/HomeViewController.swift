@@ -8,6 +8,8 @@
 
 import UIKit
 
+let buttonAnimationDuration = 0.5
+
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
     
@@ -28,12 +30,8 @@ UINavigationControllerDelegate {
             filterButtonTopConstraint.constant = 8
             postButtonBottomConstraint.constant = 8
         
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: buttonAnimationDuration) {
                 self.view.layoutIfNeeded()
-                
-            UIView.animate(withDuration: 0.5) {
-                self.view.layoutIfNeeded()
-            }
         }
     }
     
@@ -136,11 +134,17 @@ UINavigationControllerDelegate {
                 Filters.selectedFilters.append(unwrapFilters)
                 self.imageView.image = filteredImage
             })
+        }
+            
+        let comicAction = UIAlertAction(title: "Comic", style: .default) { (action) in
+            Filters.filter(name: .comic, image: image, completion: { (filteredImage) in
+                guard let unwrapFilters = filteredImage else { return }
+                Filters.selectedFilters.append(unwrapFilters)
+                self.imageView.image = filteredImage
+            })
             
         }
-        
-        
-        
+    
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
                 self.imageView.image = Filters.originalImage
         
@@ -164,9 +168,11 @@ UINavigationControllerDelegate {
         alertController.addAction(invertAction)
         alertController.addAction(warmAction)
         alertController.addAction(coolAction)
+        alertController.addAction(comicAction)
         alertController.addAction(resetAction)
         alertController.addAction(undoAction)
         alertController.addAction(cancelAction)
+       
         
         self.present(alertController, animated: true, completion: nil)
         
