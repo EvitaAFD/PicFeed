@@ -118,9 +118,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="305" height="299"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRB-yx-L8X">
-                                                    <rect key="frame" x="124.5" y="271" width="56" height="28"/>
+                                                    <rect key="frame" x="130" y="276" width="46.5" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.64303296233972607" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="0.75714362157534243" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -135,6 +135,7 @@
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="centerY" secondItem="DkF-gk-mVS" secondAttribute="centerY" id="mS2-SL-bHr"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="dateLabel" destination="fRB-yx-L8X" id="xi8-ha-ptH"/>
                                             <outlet property="imageView" destination="g3x-Qx-qAA" id="Ezd-JD-wbG"/>
                                         </connections>
                                     </collectionViewCell>

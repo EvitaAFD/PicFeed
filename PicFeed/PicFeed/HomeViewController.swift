@@ -8,7 +8,7 @@
 
 import UIKit
 
-var buttonAnimationDuration = 0.5
+let buttonAnimationDuration = 0.5
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
@@ -32,10 +32,6 @@ UINavigationControllerDelegate {
         
             UIView.animate(withDuration: buttonAnimationDuration) {
                 self.view.layoutIfNeeded()
-                
-            UIView.animate(withDuration: buttonAnimationDuration) {
-                self.view.layoutIfNeeded()
-            }
         }
     }
     
