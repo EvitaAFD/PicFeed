@@ -117,11 +117,20 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g3x-Qx-qAA">
                                                     <rect key="frame" x="0.0" y="0.0" width="305" height="299"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRB-yx-L8X">
+                                                    <rect key="frame" x="124.5" y="271" width="56" height="28"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.64303296233972607" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <color key="textColor" white="1" alpha="0.75714362157534243" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="fRB-yx-L8X" firstAttribute="centerX" secondItem="DkF-gk-mVS" secondAttribute="centerX" id="7SO-b2-LfH"/>
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="height" secondItem="DkF-gk-mVS" secondAttribute="height" id="9Uy-ax-2k1"/>
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="width" secondItem="DkF-gk-mVS" secondAttribute="width" id="PkM-8A-t6F"/>
+                                            <constraint firstAttribute="bottom" secondItem="fRB-yx-L8X" secondAttribute="bottom" id="UoJ-1l-TRz"/>
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="centerX" secondItem="DkF-gk-mVS" secondAttribute="centerX" id="bhF-tV-Z2I"/>
                                             <constraint firstItem="g3x-Qx-qAA" firstAttribute="centerY" secondItem="DkF-gk-mVS" secondAttribute="centerY" id="mS2-SL-bHr"/>
                                         </constraints>
