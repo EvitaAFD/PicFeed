@@ -34,9 +34,12 @@ UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         self.imageView.image = #imageLiteral(resourceName: "P1020947")
-         self.collectionView.dataSource = self
-         setupGalleryDelegate()
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        
+        setupGalleryDelegate()
+        Filters.originalImage = imageView.image
+        
 
         }
     
@@ -165,7 +168,7 @@ UINavigationControllerDelegate {
 }
 
 //MARK: UICollectionViewDataSource
-extension HomeViewController : UICollectionViewDataSource {
+extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCell.identifier, for: indexPath) as! FilterCell
         
@@ -186,6 +189,13 @@ extension HomeViewController : UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterNames.count
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let originalImage = Filters.originalImage else { return }
+        let filterName = self.filterNames[indexPath.row]
+        Filters.filter(name: filterName, image: originalImage) { (image) in
+            self.imageView.image = image
+        }
     }
 }
 extension HomeViewController: GalleryViewControllerDelegate {
