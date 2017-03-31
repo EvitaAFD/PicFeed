@@ -11,23 +11,17 @@ import Social
 
 let buttonAnimationDuration = 0.5
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate {
+class HomeViewController: UIViewController {
     
     let filterNames = [FilterName.blackAndWhite, FilterName.comic, FilterName.cool, FilterName.invert, FilterName.vintage, FilterName.warm]
     let filterStrings = ["Black&White", "Comic", "Cool", "Invert", "Vintage", "Warm"]
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var filterButtonBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var postButtonBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
-    
     
     let collectionViewConstant = 150
 
@@ -63,40 +57,34 @@ UINavigationControllerDelegate {
                 self.view.layoutIfNeeded()
         }
     }
-    
-    func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
-        
-        self.imagePicker.delegate = self
-        self.imagePicker.sourceType = sourceType
-        self.present(self.imagePicker, animated: true, completion: nil)
-        self.imagePicker.allowsEditing = true
-    
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        guard let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        guard let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
-        
-        self.imageView.image = editedImage
-        
-        UIImageWriteToSavedPhotosAlbum(editedImage, self, nil, nil)
-        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, nil)
 
-        Filters.originalImage = originalImage
-        self.collectionView.reloadData()
-        
-        imagePickerControllerDidCancel(picker)
-    }
 
     @IBAction func imageTapped(_ sender: Any) {
         print("User Tapped Image!")
         
         self.presentActionSheet()
+    }
+    
+    func presentActionSheet(){
+        let actionSheetController = UIAlertController(title: "Source", message: "Please select source type", preferredStyle: .actionSheet)
+        
+        if cameraAvailable() == true {
+            let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+                self.presentImagePickerWith(sourceType: .camera)
+            }
+            actionSheetController.addAction(cameraAction)
+        }
+        
+        let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            self.presentImagePickerWith(sourceType: .photoLibrary)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        actionSheetController.addAction(photoAction)
+        actionSheetController.addAction(cancelAction)
+        
+        self.present(actionSheetController, animated: true, completion: nil)
     }
     
     @IBAction func postButtonPressed(_ sender: Any) {
@@ -138,37 +126,12 @@ UINavigationControllerDelegate {
             self.present(composeController, animated: true, completion: nil)
         }
     }
-    
-    func cameraAvailable() -> Bool {
-        return UIImagePickerController.isSourceTypeAvailable(.camera)
-    }
-    
-    func presentActionSheet(){
-        let actionSheetController = UIAlertController(title: "Source", message: "Please select source type", preferredStyle: .actionSheet)
-        
-        if cameraAvailable() == true {
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.presentImagePickerWith(sourceType: .camera)
-        }
-            actionSheetController.addAction(cameraAction)
-        }
-        
-        let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
-            self.presentImagePickerWith(sourceType: .photoLibrary)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        
-        actionSheetController.addAction(photoAction)
-        actionSheetController.addAction(cancelAction)
-        
-        self.present(actionSheetController, animated: true, completion: nil)
-    }
 
 }
 
-//MARK: UICollectionViewDataSource
+//MARK: UICollectionViewDataSource, UICollectionViewDelegate
 extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCell.identifier, for: indexPath) as! FilterCell
         
@@ -187,6 +150,12 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         
         return filterCell
     }
+    
+    
+    func cameraAvailable() -> Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterNames.count
     }
@@ -198,6 +167,40 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         }
     }
 }
+
+//MARK: UIImagePickerControllerDelegate
+extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+   
+    func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
+        
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = sourceType
+        self.present(self.imagePicker, animated: true, completion: nil)
+        self.imagePicker.allowsEditing = true
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        guard let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        
+        self.imageView.image = editedImage
+        
+        UIImageWriteToSavedPhotosAlbum(editedImage, self, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, nil)
+        
+        Filters.originalImage = originalImage
+        self.collectionView.reloadData()
+        
+        imagePickerControllerDidCancel(picker)
+    }
+}
+//MARK: GalleryViewControllerDelegate
 extension HomeViewController: GalleryViewControllerDelegate {
     
     func galleryController(didSelect image: UIImage) {
