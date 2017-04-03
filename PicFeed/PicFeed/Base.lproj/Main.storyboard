@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Post-->
+        <!--Create-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="PicFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -69,7 +69,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FilterCell" id="BaL-6I-X74" customClass="FilterCell" customModule="PicFeed" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="FilterCell" id="BaL-6I-X74" customClass="FilterCell" customModule="PicFeed" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -115,7 +115,9 @@
                             <constraint firstItem="v5A-gu-DhY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="65" id="zwx-Xe-p9G"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Post" id="iWR-Sv-kbm"/>
+                    <tabBarItem key="tabBarItem" title="Create" id="iWR-Sv-kbm">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="collectionView" destination="7Xj-Nz-qrk" id="hJm-VE-Mo8"/>
                         <outlet property="collectionViewHeightConstraint" destination="Qfx-rD-QLq" id="kVV-Pq-XBu"/>
@@ -212,7 +214,9 @@
                             <outletCollection property="gestureRecognizers" destination="86Z-vX-shL" appends="YES" id="vAO-uF-9Nz"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Gallery" id="eau-s6-BoZ"/>
+                    <tabBarItem key="tabBarItem" title="Gallery" id="eau-s6-BoZ">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="collectionView" destination="uhv-lS-dD1" id="gjc-xT-Wfe"/>
                     </connections>
@@ -234,9 +238,10 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="bM6-kr-74i">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="QVc-3C-8su"/>
