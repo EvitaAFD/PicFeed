@@ -151,7 +151,6 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         return filterCell
     }
     
-    
     func cameraAvailable() -> Bool {
         return UIImagePickerController.isSourceTypeAvailable(.camera)
     }
