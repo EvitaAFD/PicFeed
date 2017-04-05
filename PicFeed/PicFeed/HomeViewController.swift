@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
-    let collectionViewConstant = 150
+    let collectionViewConstant : CGFloat = 150
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,11 @@ class HomeViewController: UIViewController {
         
         guard let image = self.imageView.image else { return }
         
-        self.collectionViewHeightConstraint.constant = CGFloat(collectionViewConstant)
+        if(self.collectionViewHeightConstraint.constant < collectionViewConstant) {
+            self.collectionViewHeightConstraint.constant = collectionViewConstant } else {
+            collectionViewHeightConstraint.constant = 0
+        }
+        
         
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
@@ -150,7 +154,6 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         
         return filterCell
     }
-    
     
     func cameraAvailable() -> Bool {
         return UIImagePickerController.isSourceTypeAvailable(.camera)
